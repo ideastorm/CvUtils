@@ -26,21 +26,31 @@ public class CrossFadeProxySource extends ImageSource implements ScaledSource {
         if (delegate instanceof OnDemandSource) {
             ((OnDemandSource) delegate).start();
         }
-        if (fadeIntoDelegate != null) {
-            this.delegate = fadeIntoDelegate;
+
+        if (this.delegate instanceof AbstractFilter) {
+            ((AbstractFilter) this.delegate).setSource(delegate);
+        } else {
+            if (fadeIntoDelegate != null) {
+                this.delegate = fadeIntoDelegate;
+            }
+            setFadeDelegateInternal(delegate);
         }
-        setFadeDelegateInternal(delegate);
     }
 
     public void setDelegateNoFade(ImageSource delegate) {
-//        if (this.delegate instanceof Media) {
-//            ((Media) this.delegate).stop();
-//        }
-//        if (delegate instanceof Media) {
-//            ((Media) delegate).start();
-//        }
-        this.delegate = delegate;
-        fadeIntoDelegate = null;
+        if (this.delegate instanceof OnDemandSource) {
+            ((OnDemandSource) this.delegate).stop();
+        }
+
+        if (delegate instanceof OnDemandSource) {
+            ((OnDemandSource) delegate).start();
+        }
+        if (this.delegate instanceof AbstractFilter) {
+            ((AbstractFilter) this.delegate).setSource(delegate);
+        } else {
+            this.delegate = delegate;
+            fadeIntoDelegate = null;
+        }
     }
 
     private void setFadeDelegateInternal(ImageSource source) {

@@ -110,8 +110,15 @@ public final class ImageUtils {
     public static BufferedImage emptyImage() {
         return new BufferedImage(320, 240, BufferedImage.TYPE_4BYTE_ABGR);
     }
+    
+    public static BufferedImage emptyImage(Dimension size)
+    {
+        return new BufferedImage(size.width, size.height, BufferedImage.TYPE_4BYTE_ABGR);
+    }
 
     public static BufferedImage copyAspectScaled(BufferedImage img, Dimension size) {
+        if (img == null)
+            return emptyImage(size);
         return Scalr.resize(img, Scalr.Method.BALANCED, size.width, size.height);
 //        return copyAspectScaled(img, size.width, size.height);
     }
