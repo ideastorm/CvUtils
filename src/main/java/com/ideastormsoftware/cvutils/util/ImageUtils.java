@@ -123,10 +123,6 @@ public final class ImageUtils {
 //        return copyAspectScaled(img, size.width, size.height);
     }
 
-    public static void drawAspectScaled(Graphics2D g, BufferedImage img, Dimension size) {
-        drawAspectScaled(g, img, size.width, size.height);
-    }
-
     public static void drawAspectScaled(Graphics2D g, BufferedImage img, int width, int height) {
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.setColor(Color.black);
