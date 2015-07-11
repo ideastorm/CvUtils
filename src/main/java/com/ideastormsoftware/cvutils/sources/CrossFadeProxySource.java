@@ -99,10 +99,11 @@ public class CrossFadeProxySource extends ImageSource implements ScaledSource {
 
     @Override
     public BufferedImage getCurrentImage(Dimension finalSize) {
-        BufferedImage baseImage = ImageUtils.scaleSource(delegate).getCurrentImage(finalSize);
+        BufferedImage baseImage = ImageUtils.emptyImage(finalSize);
+        Graphics2D g = baseImage.createGraphics();
+        ImageUtils.drawAspectScaled(g, ImageUtils.scaleSource(delegate).getCurrentImage(finalSize), finalSize);
         if (fadeIntoDelegate != null) {
             BufferedImage overlayImage = ImageUtils.scaleSource(fadeIntoDelegate).getCurrentImage(finalSize);
-            Graphics2D g = baseImage.createGraphics();
             float alpha = findAlpha();
             if (alpha >= 1) {
                 alpha = 1;
@@ -110,7 +111,7 @@ public class CrossFadeProxySource extends ImageSource implements ScaledSource {
                 fadeIntoDelegate = null;
             }
             g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-            g.drawImage(overlayImage, 0, 0, null);
+            ImageUtils.drawAspectScaled(g, overlayImage, finalSize);
         }
         return baseImage;
     }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.ideastormsoftware.cvutils.util;
 
 import com.ideastormsoftware.cvutils.sources.ImageSource;
@@ -83,8 +82,9 @@ public final class ImageUtils {
     }
 
     public static BufferedImage convertToImage(Mat mat) {
-        if (mat == null)
+        if (mat == null) {
             return emptyImage();
+        }
         int bufferedImageType = BufferedImage.TYPE_BYTE_GRAY;
         if (mat.channels() > 1) {
             Mat rgbMat = new Mat();
@@ -126,17 +126,21 @@ public final class ImageUtils {
     public static BufferedImage emptyImage() {
         return new BufferedImage(320, 240, BufferedImage.TYPE_4BYTE_ABGR);
     }
-    
-    public static BufferedImage emptyImage(Dimension size)
-    {
+
+    public static BufferedImage emptyImage(Dimension size) {
         return new BufferedImage(size.width, size.height, BufferedImage.TYPE_4BYTE_ABGR);
     }
 
     public static BufferedImage copyAspectScaled(BufferedImage img, Dimension size) {
-        if (img == null)
+        if (img == null) {
             return emptyImage(size);
+        }
         return Scalr.resize(img, Scalr.Method.BALANCED, size.width, size.height);
 //        return copyAspectScaled(img, size.width, size.height);
+    }
+
+    public static void drawAspectScaled(Graphics2D g, BufferedImage img, Dimension size) {
+        drawAspectScaled(g, img, size.width, size.height);
     }
 
     public static void drawAspectScaled(Graphics2D g, BufferedImage img, int width, int height) {
