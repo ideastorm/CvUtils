@@ -50,24 +50,25 @@ public class RenderPane extends JPanel {
             BufferedImage image = source.getCurrentImage(new Dimension(getWidth(), getHeight()));
             long getScaledImageTime = System.nanoTime();
 
-            if (getBorder() != null) {
+                Border border = getBorder();
+            if (border != null) {
                 int w = getWidth();
                 int h = getHeight();
-                BufferedImage workImage = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
-                Graphics2D grphcs = workImage.createGraphics();
-                Border border = getBorder();
+//                BufferedImage workImage = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
+//                Graphics2D grphcs = workImage.createGraphics();
+                Graphics2D grphcs = image.createGraphics();
                 border.paintBorder(this, grphcs, 0, 0, w, h);
-                Insets borderInsets = border.getBorderInsets(this);
-                w -= borderInsets.left + borderInsets.right;
-                h -= borderInsets.top + borderInsets.bottom;
-                grphcs.translate(borderInsets.left, borderInsets.top);
-
-                if (w < 1 || h < 1) {
-                    return;
-                }
-
-                ImageUtils.drawAspectScaled(grphcs, image, w, h);
-                image = workImage;
+//                Insets borderInsets = border.getBorderInsets(this);
+//                w -= borderInsets.left + borderInsets.right;
+//                h -= borderInsets.top + borderInsets.bottom;
+//                grphcs.translate(borderInsets.left, borderInsets.top);
+//
+//                if (w < 1 || h < 1) {
+//                    return;
+//                }
+//
+//                ImageUtils.drawAspectScaled(grphcs, image, w, h);
+//                image = workImage;
             }
             long prepBorderTime = System.nanoTime();
             synchronized (imageLock) {

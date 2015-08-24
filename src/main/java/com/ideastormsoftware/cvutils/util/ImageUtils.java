@@ -30,6 +30,8 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 public final class ImageUtils {
+    
+    private static final Scalr.Method method = Scalr.Method.valueOf(System.getProperty("scalr.method", "SPEED"));
 
     public static BufferedImage copy(BufferedImage img) {
         BufferedImage copy = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
@@ -117,10 +119,7 @@ public final class ImageUtils {
         if (img.getWidth() == width && img.getHeight() == height) {
             return img;
         }
-        BufferedImage copy = new BufferedImage(width, height, img.getType());
-        Graphics2D g = copy.createGraphics();
-        drawAspectScaled(g, img, width, height);
-        return copy;
+        return Scalr.resize(img, method, width, height);
     }
 
     public static BufferedImage emptyImage() {
@@ -135,8 +134,7 @@ public final class ImageUtils {
         if (img == null) {
             return emptyImage(size);
         }
-        return Scalr.resize(img, Scalr.Method.BALANCED, size.width, size.height);
-//        return copyAspectScaled(img, size.width, size.height);
+        return Scalr.resize(img, method, size.width, size.height);
     }
 
     public static void drawAspectScaled(Graphics2D g, BufferedImage img, Dimension size) {

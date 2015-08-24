@@ -18,12 +18,17 @@ package com.ideastormsoftware.cvutils.sources;
 
 import com.ideastormsoftware.cvutils.util.ImageUtils;
 import java.awt.image.BufferedImage;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 
 public class Camera extends ImageSource {
+    
+    static {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    }
 
     private static final CameraThread[] cameraThreads = new CameraThread[16];
 
