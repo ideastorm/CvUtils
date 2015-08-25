@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.ideastormsoftware.cvutils.sources;
 
 import com.ideastormsoftware.cvutils.util.ImageUtils;
@@ -25,7 +24,7 @@ import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 
 public class Camera extends ImageSource {
-    
+
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
@@ -49,7 +48,6 @@ public class Camera extends ImageSource {
     public Camera(int cameraIndex) {
         selectCamera(cameraIndex);
     }
-
 
     public final void selectCamera(int cameraIndex) {
         selectedCamera = cameraIndex;
@@ -117,7 +115,6 @@ public class Camera extends ImageSource {
                 Mat mat = new Mat();
 
                 capture.read(mat);
-                currentMat = mat;
                 BufferedImage image = ImageUtils.convertToImage(mat);
 
                 setCurrentImage(mat, image);
@@ -167,7 +164,7 @@ public class Camera extends ImageSource {
             this.currentMat = mat;
             this.currentImage = image;
         }
-        
+
         public synchronized Mat getCurrentMat() {
             return this.currentMat;
         }

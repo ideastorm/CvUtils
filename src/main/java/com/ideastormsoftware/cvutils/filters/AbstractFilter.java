@@ -26,8 +26,9 @@ public abstract class AbstractFilter extends ImageSource implements ScaledSource
 
     private ImageSource source;
 
-    public void setSource(ImageSource source) {
+    public <T extends AbstractFilter> T setSource(ImageSource source) {
         this.source = source;
+        return (T) this;
     }
     
     public <T extends AbstractFilter> T withSource(ImageSource source)
